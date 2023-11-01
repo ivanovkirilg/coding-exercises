@@ -8,8 +8,14 @@ FIZZ_STRING = 'Fizz'
 BUZZ_STRING = 'Buzz'
 
 def fizzBuzz(number):
-    if _is_divisible_by(number, FIZZ_DIVISOR):
-        return 'Fizz'
-    if _is_divisible_by(number, BUZZ_DIVISOR):
-        return 'Buzz'
+    if ( _is_divisible_by(number, FIZZ_DIVISOR)
+        and
+        _is_divisible_by(number, BUZZ_DIVISOR) ):
+        return FIZZ_STRING + BUZZ_STRING
+
+    elif _is_divisible_by(number, FIZZ_DIVISOR):
+        return FIZZ_STRING
+    elif _is_divisible_by(number, BUZZ_DIVISOR):
+        return BUZZ_STRING
+
     return str(number)
