@@ -1,5 +1,6 @@
-def _is_divisible_by(number, divisor):
-    return number % divisor == 0
+def _is_divisible_by(number, *divisors):
+    remainders = (number % div for div in divisors)
+    return all(rem == 0 for rem in remainders)
 
 FIZZ_DIVISOR = 3
 BUZZ_DIVISOR = 5
@@ -8,11 +9,8 @@ FIZZ_STRING = 'Fizz'
 BUZZ_STRING = 'Buzz'
 
 def fizzBuzz(number):
-    if ( _is_divisible_by(number, FIZZ_DIVISOR)
-        and
-        _is_divisible_by(number, BUZZ_DIVISOR) ):
+    if _is_divisible_by(number, FIZZ_DIVISOR, BUZZ_DIVISOR):
         return FIZZ_STRING + BUZZ_STRING
-
     elif _is_divisible_by(number, FIZZ_DIVISOR):
         return FIZZ_STRING
     elif _is_divisible_by(number, BUZZ_DIVISOR):
