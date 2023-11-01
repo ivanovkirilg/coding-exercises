@@ -14,11 +14,13 @@ class TestFizzBuzz(unittest.TestCase):
 
     def test_fizzBuzz_returns_fizz_for_multiples_of_three(self):
         '''For multiples of three return “Fizz” instead of the number'''
-        number = 3
+        numbers = 3, 3*2, 3*3
 
-        result = fizzBuzz(number)
+        results = ( fizzBuzz(number) for number in numbers )
 
-        self.assertEqual(result, 'Fizz')
+        for result in results:
+            self.assertEqual(result, 'Fizz')
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()
