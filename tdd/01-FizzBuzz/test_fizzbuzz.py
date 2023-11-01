@@ -21,6 +21,15 @@ class TestFizzBuzz(unittest.TestCase):
         for result in results:
             self.assertEqual(result, 'Fizz')
 
+    def test_fizzBuzz_returns_buzz_for_multiples_of_five(self):
+        '''For the multiples of five return “Buzz”'''
+        numbers = 5, 5*2, 5*5
+
+        results = ( fizzBuzz(number) for number in numbers )
+
+        for result in results:
+            self.assertEqual(result, 'Buzz')
+
 
 if __name__ == '__main__':
     unittest.main()
