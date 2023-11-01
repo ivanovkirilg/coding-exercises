@@ -1,0 +1,2 @@
+def fizzBuzz(number):
+    pass
