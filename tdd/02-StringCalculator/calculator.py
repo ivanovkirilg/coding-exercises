@@ -18,6 +18,9 @@ def add(numbers):
     for sep in SEPARATORS:
         numbers = _flatten( num.split(sep) for num in numbers )
 
-    numbers = (int(num) for num in numbers)
+    try:
+        numbers = [ int(num) for num in numbers ]
+    except ValueError as exc:
+        raise ValueError("found extraneous separator") from exc
 
     return sum(numbers)
