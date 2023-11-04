@@ -44,6 +44,15 @@ class TestCalculatorAdd(unittest.TestCase):
         result = add(numbers)
         self.assertEqual(result, 1 + 2)
 
+    def test_given_two_separators_then_add_returns_sum(self):
+        '''Allow the add method to handle newlines as separators,
+           instead of comas
+            1,2\n3 should return “6”
+            2,\n3 is invalid, but no need to clarify it with the program'''
+        numbers = "1,2\n3"
+        result = add(numbers)
+        self.assertEqual(result, 1 + 2 + 3)
+
 
 if __name__ == '__main__':
     unittest.main()
