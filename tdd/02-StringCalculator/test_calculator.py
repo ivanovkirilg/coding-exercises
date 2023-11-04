@@ -53,6 +53,14 @@ class TestCalculatorAdd(unittest.TestCase):
         result = add(numbers)
         self.assertEqual(result, 1 + 2 + 3)
 
+    def test_given_separator_at_the_end_then_add_raises_exception(self):
+        '''Add validation to not to allow a separator at the end
+           For example “1,2,” should return an error (or throw an exception)'''
+        numbers = "1,2,"
+        with self.assertRaises(ValueError) as exc_context:
+            add(numbers)
+        self.assertIn('separator', str(exc_context.exception))
+
 
 if __name__ == '__main__':
     unittest.main()
