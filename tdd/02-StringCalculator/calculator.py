@@ -1,7 +1,9 @@
+SEPARATOR = ','
+
 def add(numbers):
     if not numbers:
         return 0
 
-    numbers = numbers.split(',')
+    numbers = ( int(num) for num in numbers.split(SEPARATOR) )
 
-    return sum( (int(num) for num in numbers) )
+    return sum(numbers)
