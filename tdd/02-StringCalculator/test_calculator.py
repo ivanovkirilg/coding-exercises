@@ -69,7 +69,9 @@ class TestCalculatorAdd(unittest.TestCase):
             //;\n1;3 should return “4”
             //|\n1|2|3 should return “6”
             //sep\n2sep5 should return “7”
-            //|\n1|2,3 is invalid and should return an error (or throw an exception) with the message “‘|’ expected but ‘,’ found at position 3.”'''
+            //|\n1|2,3 is invalid
+            and should return an error (or throw an exception) with the message
+            “‘|’ expected but ‘,’ found at position 3.”'''
         numbers = "//sep\n1sep2"
         result = add(numbers)
         self.assertEqual(result, 1 + 2)

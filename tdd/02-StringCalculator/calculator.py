@@ -14,20 +14,23 @@ def _convert_to_ints(number_strings):
     except ValueError as exc:
         raise ValueError("found extraneous separator") from exc
 
+def _preprocess(lines):
+    separator = DEFAULT_SEPARATOR
+
+    if lines[0].startswith(CUSTOM_SEPARATOR_MARKER):
+        separator = lines[0][len(CUSTOM_SEPARATOR_MARKER):]
+        del lines[0]
+
+    return separator
+
 
 def add(numbers: str):
     if not numbers:
         return 0
 
-    if numbers.startswith(CUSTOM_SEPARATOR_MARKER):
-        separator = numbers[len(CUSTOM_SEPARATOR_MARKER):].split('\n')[0]
-        numbers = numbers.split('\n')[1:]
-    else:
-        separator = DEFAULT_SEPARATOR
-        numbers = [numbers]
-    separators = (separator, NEWLINE_SEPARATOR)
+    lines = numbers.split(NEWLINE_SEPARATOR)
+    separator = _preprocess(lines)
 
-    for sep in separators:
-        numbers = _flatten( num.split(sep) for num in numbers )
+    number_strings = _flatten( line.split(separator) for line in lines )
 
-    return sum(_convert_to_ints(numbers))
+    return sum(_convert_to_ints(number_strings))
