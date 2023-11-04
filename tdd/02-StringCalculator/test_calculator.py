@@ -21,6 +21,14 @@ class TestCalculatorAdd(unittest.TestCase):
         result = add(numbers)
         self.assertEqual(result, 3)
 
+    def test_given_two_numbers_then_add_returns_their_sum(self):
+        '''The method can take up to two numbers, separated by commas,
+           and will return their sum as a result. So the inputs can be:
+           “”, “1”, “1,2”. For an empty string, it will return 0.'''
+        numbers = "1,2"
+        result = add(numbers)
+        self.assertEqual(result, 3)
+
 
 if __name__ == '__main__':
     unittest.main()
