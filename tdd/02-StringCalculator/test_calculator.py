@@ -29,6 +29,12 @@ class TestCalculatorAdd(unittest.TestCase):
         result = add(numbers)
         self.assertEqual(result, 3)
 
+    def test_given_more_numbers_then_add_returns_their_sum(self):
+        '''Allow the add method to handle an unknown number of arguments'''
+        numbers = "1,2,3,4"
+        result = add(numbers)
+        self.assertEqual(result, 1 + 2 + 3 + 4)
+
 
 if __name__ == '__main__':
     unittest.main()
