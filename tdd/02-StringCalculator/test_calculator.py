@@ -76,6 +76,23 @@ class TestCalculatorAdd(unittest.TestCase):
         result = add(numbers)
         self.assertEqual(result, 1 + 2)
 
+    def test_given_different_separators_then_add_raises_exception(self):
+        '''Allow the add method to handle different delimiters
+           To change the delimiter, the beginning of the input will contain
+           a separate line that looks like this:
+            //[delimiter]\n[numbers]
+            //;\n1;3 should return “4”
+            //|\n1|2|3 should return “6”
+            //sep\n2sep5 should return “7”
+            //|\n1|2,3 is invalid
+            and should return an error (or throw an exception) with the message
+            “‘|’ expected but ‘,’ found at position 3.”'''
+        numbers = "//|\n1|2,3"
+        with self.assertRaises(ValueError) as exc_context:
+            add(numbers)
+        self.assertEqual("'|' expected but ',' found at position 3.",
+                         str(exc_context.exception))
+
 
 if __name__ == '__main__':
     unittest.main()
