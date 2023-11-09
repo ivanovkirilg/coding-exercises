@@ -11,7 +11,6 @@ class ValidationError(enum.Enum):
     TOO_FEW_NUMBERS = 'The password must contain at least 2 numbers'
     TOO_FEW_CAPITAL_LETTERS = 'Password must contain at least one capital letter'
 
-
 @dataclass
 class ValidationResult:
     is_valid: bool = True
@@ -22,18 +21,16 @@ VALIDATORS = {
     ValidationError.TOO_SHORT :
         lambda password: len(password) >= MINIMUM_LENGTH,
     ValidationError.TOO_FEW_NUMBERS :
-        lambda password: _count_numbers(password) >= MINIMUM_NUMBERS_COUNT,
+        lambda password: _count(password, str.isdigit) >= MINIMUM_NUMBERS_COUNT,
     ValidationError.TOO_FEW_CAPITAL_LETTERS :
         lambda password:
-            _count_capital_letters(password) >= MINIMUM_CAPITAL_LETTERS_COUNT
+            _count(password, str.isupper) >= MINIMUM_CAPITAL_LETTERS_COUNT
 }
 
 
-def _count_numbers(password: str):
-    return sum(char.isdigit() for char in password)
 
-def _count_capital_letters(password: str):
-    return sum(char.isupper() for char in password)
+def _count(password: str, checker: callable):
+    return sum(checker(char) for char in password)
 
 def validate(password):
     result = ValidationResult()
