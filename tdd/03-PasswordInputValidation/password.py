@@ -16,18 +16,23 @@ class ValidationResult:
     errors: list = field(default_factory=list)
 
 
+VALIDATORS = {
+    ValidationError.TOO_SHORT :
+        lambda password: len(password) >= MINIMUM_LENGTH,
+    ValidationError.TOO_FEW_NUMBERS :
+        lambda password: _count_numbers(password) >= MINIMUM_NUMBERS_COUNT
+}
+
+
 def _count_numbers(password: str):
     return sum(char.isdigit() for char in password)
 
 def validate(password):
     result = ValidationResult()
 
-    if len(password) < MINIMUM_LENGTH:
-        result.is_valid = False
-        result.errors.append(ValidationError.TOO_SHORT)
-
-    if _count_numbers(password) < MINIMUM_NUMBERS_COUNT:
-        result.is_valid = False
-        result.errors.append(ValidationError.TOO_FEW_NUMBERS)
+    for err, validator in VALIDATORS.items():
+        if not validator(password):
+            result.is_valid = False
+            result.errors.append(err)
 
     return result
