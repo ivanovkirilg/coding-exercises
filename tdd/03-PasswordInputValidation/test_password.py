@@ -15,13 +15,27 @@ class TestPasswordValidate(unittest.TestCase):
         '''
         The password must be at least 8 characters long.
         If it is not met, then the following error message should be returned:
-        “Password must be at least 8 characters” '''
+        “Password must be at least 8 characters”
+        '''
         pw = 'hi'
 
         result = password.validate(pw)
 
         self.assertFalse(result.is_valid)
         self.assertIn(password.ValidationError.TOO_SHORT, result.errors)
+
+    def test_error_when_not_enough_numbers(self):
+        '''
+        The password must contain at least 2 numbers.
+        If it is not met, then the following error message should be returned:
+        “The password must contain at least 2 numbers”
+        '''
+        pw = 'abcdefghij'
+
+        result = password.validate(pw)
+
+        self.assertFalse(result.is_valid)
+        self.assertIn(password.ValidationError.TOO_FEW_NUMBERS, result.errors)
 
 
 if __name__ == '__main__':
