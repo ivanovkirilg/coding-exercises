@@ -1,5 +1,5 @@
 import enum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 MINIMUM_LENGTH = 8
 MINIMUM_NUMBERS_COUNT = 2
@@ -12,18 +12,22 @@ class ValidationError(enum.Enum):
 
 @dataclass
 class ValidationResult:
-    is_valid: bool
-    errors: list
+    is_valid: bool = True
+    errors: list = field(default_factory=list)
 
 
 def _count_numbers(password: str):
     return sum(char.isdigit() for char in password)
 
 def validate(password):
+    result = ValidationResult()
+
     if len(password) < MINIMUM_LENGTH:
-        return ValidationResult(
-            False, [ValidationError.TOO_SHORT])
+        result.is_valid = False
+        result.errors.append(ValidationError.TOO_SHORT)
 
     if _count_numbers(password) < MINIMUM_NUMBERS_COUNT:
-        return ValidationResult(
-            False, [ValidationError.TOO_FEW_NUMBERS])
+        result.is_valid = False
+        result.errors.append(ValidationError.TOO_FEW_NUMBERS)
+
+    return result

@@ -37,6 +37,21 @@ class TestPasswordValidate(unittest.TestCase):
         self.assertFalse(result.is_valid)
         self.assertIn(password.ValidationError.TOO_FEW_NUMBERS, result.errors)
 
+    def test_multiple_errors_recognized(self):
+        '''
+        The validation function should handle multiple validation errors.
+        For example, “somepassword” should an error message:
+        “Password must be at least 8 characters
+        The password must contain at least 2 numbers”
+        '''
+        pw = 'hi'
+
+        result = password.validate(pw)
+
+        self.assertFalse(result.is_valid)
+        self.assertIn(password.ValidationError.TOO_SHORT, result.errors)
+        self.assertIn(password.ValidationError.TOO_FEW_NUMBERS, result.errors)
+
 
 if __name__ == '__main__':
     unittest.main()
