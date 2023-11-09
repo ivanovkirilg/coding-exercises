@@ -17,7 +17,7 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “Password must be at least 8 characters”
         '''
-        pw = 'hi'
+        pw = 'A12.'
 
         result = password.validate(pw)
 
@@ -30,12 +30,26 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “The password must contain at least 2 numbers”
         '''
-        pw = 'abcdefghij'
+        pw = 'Abcdefghij.'
 
         result = password.validate(pw)
 
         self.assertFalse(result.is_valid)
         self.assertIn(password.ValidationError.TOO_FEW_NUMBERS, result.errors)
+
+    def test_error_when_not_enough_capital_letters(self):
+        '''
+        The password must contain at least one capital letter.
+        If it is not met, then the following error message should be returned:
+        “password must contain at least one capital letter”
+        '''
+        pw = 'abcdefgh12.'
+
+        result = password.validate(pw)
+
+        self.assertFalse(result.is_valid)
+        self.assertIn(password.ValidationError.TOO_FEW_CAPITAL_LETTERS,
+                      result.errors)
 
     def test_multiple_errors_recognized(self):
         '''
