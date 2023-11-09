@@ -6,7 +6,7 @@ a boolean indicating if the password is valid or not, and also a field
 with the possible validation errors.
 '''
 
-from password import validate
+import password
 
 import unittest
 
@@ -18,10 +18,10 @@ class TestPasswordValidate(unittest.TestCase):
         “Password must be at least 8 characters” '''
         pw = 'hi'
 
-        result = validate(pw)
+        result = password.validate(pw)
 
         self.assertFalse(result.is_valid)
-        self.assertIn('Password must be at least 8 characters', result.errors)
+        self.assertIn(password.ValidationError.TOO_SHORT, result.errors)
 
 
 if __name__ == '__main__':
