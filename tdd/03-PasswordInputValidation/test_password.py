@@ -10,6 +10,15 @@ import password
 
 import unittest
 
+def _build_password(min_length  = password.MINIMUM_LENGTH,
+                    nr_numbers  = password.MINIMUM_NUMBERS_COUNT,
+                    nr_capitals = password.MINIMUM_CAPITAL_LETTERS_COUNT,
+                    nr_specials = password.MINIMUM_SPECIAL_CHARACTERS_COUNT):
+    pw = '1' * nr_numbers + 'A' * nr_capitals + '.' * nr_specials
+    nr_lower = min_length - len(pw)
+    pw += 'a' * nr_lower
+    return pw
+
 class TestPasswordValidate(unittest.TestCase):
     def test_valid_password(self):
         '''
@@ -18,7 +27,7 @@ class TestPasswordValidate(unittest.TestCase):
         The password must contain at least one capital letter.
         The password must contain at least one special character.
         '''
-        pw = 'Abcdefg12.'
+        pw = _build_password()
 
         result = password.validate(pw)
 
@@ -31,7 +40,7 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “Password must be at least 8 characters”
         '''
-        pw = 'A12.'
+        pw = _build_password(min_length=password.MINIMUM_LENGTH - 1)
 
         result = password.validate(pw)
 
@@ -44,7 +53,7 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “The password must contain at least 2 numbers”
         '''
-        pw = 'Abcdefghij.'
+        pw = _build_password(nr_numbers=password.MINIMUM_NUMBERS_COUNT - 1)
 
         result = password.validate(pw)
 
@@ -57,7 +66,8 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “password must contain at least one capital letter”
         '''
-        pw = 'abcdefgh12.'
+        pw = _build_password(
+            nr_capitals=password.MINIMUM_CAPITAL_LETTERS_COUNT - 1)
 
         result = password.validate(pw)
 
@@ -72,7 +82,9 @@ class TestPasswordValidate(unittest.TestCase):
         “Password must be at least 8 characters
         The password must contain at least 2 numbers”
         '''
-        pw = 'hi'
+        pw = _build_password(
+            min_length=password.MINIMUM_LENGTH - 1,
+            nr_numbers=password.MINIMUM_CAPITAL_LETTERS_COUNT - 1)
 
         result = password.validate(pw)
 
@@ -86,7 +98,8 @@ class TestPasswordValidate(unittest.TestCase):
         If it is not met, then the following error message should be returned:
         “Password must contain at least one special character”
         '''
-        pw = 'Abcdefgh1234'
+        pw = _build_password(
+            nr_specials=password.MINIMUM_SPECIAL_CHARACTERS_COUNT - 1)
 
         result = password.validate(pw)
 

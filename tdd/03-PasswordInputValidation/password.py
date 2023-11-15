@@ -32,7 +32,6 @@ VALIDATORS = {
             _count(password, _isspecial) >= MINIMUM_SPECIAL_CHARACTERS_COUNT
 }
 
-
 _SPECIAL_CHARACTERS = set(r"""`~!@#$%^&*()_-+={[}}|\:;"'<,>.?/""")
 
 def _isspecial(s: str):
