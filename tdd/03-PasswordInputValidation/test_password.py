@@ -11,6 +11,20 @@ import password
 import unittest
 
 class TestPasswordValidate(unittest.TestCase):
+    def test_valid_password(self):
+        '''
+        The password must be at least 8 characters long.
+        The password must contain at least 2 numbers.
+        The password must contain at least one capital letter.
+        The password must contain at least one special character.
+        '''
+        pw = 'Abcdefg12.'
+
+        result = password.validate(pw)
+
+        self.assertTrue(result.is_valid)
+        self.assertEqual(len(result.errors), 0)
+
     def test_error_when_password_too_short(self):
         '''
         The password must be at least 8 characters long.
@@ -65,6 +79,20 @@ class TestPasswordValidate(unittest.TestCase):
         self.assertFalse(result.is_valid)
         self.assertIn(password.ValidationError.TOO_SHORT, result.errors)
         self.assertIn(password.ValidationError.TOO_FEW_NUMBERS, result.errors)
+
+    def test_error_when_not_enough_special_characters(self):
+        '''
+        The password must contain at least one special character.
+        If it is not met, then the following error message should be returned:
+        “Password must contain at least one special character”
+        '''
+        pw = 'Abcdefgh1234'
+
+        result = password.validate(pw)
+
+        self.assertFalse(result.is_valid)
+        self.assertIn(password.ValidationError.TOO_FEW_SPECIAL_CHARACTERS,
+                      result.errors)
 
 
 if __name__ == '__main__':
