@@ -6,4 +6,4 @@ class Product:
 
 
 def calculate_total(products):
-    pass
+    return sum( prod.price for prod in products )
