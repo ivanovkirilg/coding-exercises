@@ -1,6 +1,4 @@
 """
-2. The user may optionally use a coupon,
-   in which case its value should be deducted from the total.
 3. If the coupon's value is greater than the summed price,
    the function should return a 0 total and indicate
    that the user should receive a new coupon worth the difference.
@@ -22,4 +20,14 @@ class TestCalculateTotal:
         total = calculate_total(products)
 
         assert total == 3
+
+    def test_coupon_reduces_price(self):
+        ''' 2. The user may optionally use a coupon,
+        in which case its value should be deducted from the total. '''
+        products = [Product(0.5), Product(1), Product(1.5)]
+        coupon = 1.5
+
+        total = calculate_total(products, coupon=coupon)
+
+        assert total == 1.5
 
