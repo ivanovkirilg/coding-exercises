@@ -6,4 +6,5 @@ class Product:
 
 
 def calculate_total(products, coupon=0.0):
-    return sum( prod.price for prod in products ) - coupon
+    total = sum( prod.price for prod in products )
+    return total - coupon
