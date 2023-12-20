@@ -24,7 +24,7 @@ class TestCalculateTotal:
     def test_unspent_part_of_coupon_returned(self):
         ''' 3. If the coupon's value is greater than the summed price,
         the function should return a 0 total and indicate
-        that the user should receive a new coupon worth the difference.'''
+        that the user should receive a new coupon worth the difference. '''
         products = [Product(1)]
         coupon = Coupon(3)
 
@@ -33,7 +33,7 @@ class TestCalculateTotal:
         assert total == approx(Coupon(2))
 
     def test_multiple_coupons(self):
-        ''' 4. Allow multiple coupons per cart.'''
+        ''' 4. Allow multiple coupons per cart. '''
         products = [Product(5)]
         coupons = [Coupon(1), Coupon(2)]
 

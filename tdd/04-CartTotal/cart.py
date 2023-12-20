@@ -9,12 +9,14 @@ class Coupon:
     value: float
 
 
+def _sum_coupons(coupons: "list[Coupon]"):
+    return sum(coupon.value for coupon in coupons)
+
 def calculate_total(products, coupons: "list[Coupon]" = []):
     total = sum( prod.price for prod in products )
 
-    reduced_total = total - sum(
-        coupon.value for coupon in coupons)
+    total -= _sum_coupons(coupons)
 
-    if reduced_total < 0:
-        return Coupon(-reduced_total)
-    return reduced_total
+    if total < 0:
+        return Coupon(-total)
+    return total
