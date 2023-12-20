@@ -11,7 +11,9 @@ class Coupon:
 
 def calculate_total(products, coupon=Coupon(0.0)):
     total = sum( prod.price for prod in products )
+
     reduced_total = total - coupon.value
+
     if reduced_total < 0:
         return Coupon(-reduced_total)
     return reduced_total
