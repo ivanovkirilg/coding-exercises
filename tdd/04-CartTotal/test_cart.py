@@ -32,9 +32,17 @@ class TestCalculateTotal:
 
         assert total == approx(Coupon(2))
 
+    def test_multiple_coupons(self):
+        ''' 4. Allow multiple coupons per cart.'''
+        products = [Product(5)]
+        coupons = [Coupon(1), Coupon(2)]
+
+        total = calculate_total(products, coupon=coupons)
+
+        assert total == approx(2)
+
 
 """
-4. Allow multiple coupons per cart.
 5. Some of the products in a user's cart may have an associated discount
    (in percentage). Apply discounts before coupons.
 6. Allow multiple discounts per product.
