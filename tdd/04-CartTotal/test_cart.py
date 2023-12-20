@@ -17,7 +17,7 @@ class TestCalculateTotal:
         products = [Product(3)]
         coupon = Coupon(1.5)
 
-        total = calculate_total(products, coupon=coupon)
+        total = calculate_total(products, coupons=[coupon])
 
         assert total == approx(1.5)
 
@@ -28,7 +28,7 @@ class TestCalculateTotal:
         products = [Product(1)]
         coupon = Coupon(3)
 
-        total = calculate_total(products, coupon=coupon)
+        total = calculate_total(products, coupons=[coupon])
 
         assert total == approx(Coupon(2))
 
@@ -37,7 +37,7 @@ class TestCalculateTotal:
         products = [Product(5)]
         coupons = [Coupon(1), Coupon(2)]
 
-        total = calculate_total(products, coupon=coupons)
+        total = calculate_total(products, coupons=coupons)
 
         assert total == approx(2)
 
