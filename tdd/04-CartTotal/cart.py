@@ -17,10 +17,14 @@ def _get_discounted_price(product):
     return product.price * (1.0 - product.discount)
 
 def calculate_total(products, coupons: "list[Coupon]" = []):
-    total = sum( _get_discounted_price(prod) for prod in products )
+    discounted_prices = ( _get_discounted_price(product)
+                         for product in products )
+
+    total = sum(discounted_prices)
 
     total -= _sum_coupons(coupons)
 
     if total < 0:
-        return Coupon(-total)
+        total = Coupon(-total)
+
     return total
