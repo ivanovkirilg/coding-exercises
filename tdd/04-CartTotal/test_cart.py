@@ -41,10 +41,27 @@ class TestCalculateTotal:
 
         assert total == approx(2)
 
+    def test_discounted_product(self):
+        ''' 5. Some of the products in a user's cart may have an associated
+        discount (in percentage). Apply discounts before coupons. '''
+        products = [Product(10, discount=0.5)]
+
+        total = calculate_total(products)
+
+        assert total == approx(5)
+
+    def test_discount_applied_before_coupon(self):
+        ''' 5. Some of the products in a user's cart may have an associated
+        discount (in percentage). Apply discounts before coupons. '''
+        products = [Product(10, discount=0.5)]
+        coupon = Coupon(3)
+
+        total = calculate_total(products, coupons=[coupon])
+
+        assert total == approx(2)
+
 
 """
-5. Some of the products in a user's cart may have an associated discount
-   (in percentage). Apply discounts before coupons.
 6. Allow multiple discounts per product.
    A product with an initial price of $10
    and two 50% discounts should total $2.50, not $0.

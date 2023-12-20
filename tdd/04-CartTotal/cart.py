@@ -3,6 +3,7 @@ from dataclasses import dataclass
 @dataclass
 class Product:
     price: float
+    discount: float = 0.0
 
 @dataclass
 class Coupon:
