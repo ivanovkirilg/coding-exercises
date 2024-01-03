@@ -13,10 +13,15 @@ class Coupon:
 def _sum_coupons(coupons: "list[Coupon]"):
     return sum(coupon.value for coupon in coupons)
 
-def _get_discounted_price(product):
+def _apply_discount(price, discount):
+    return price * (1.0 - discount)
+
+def _get_discounted_price(product: Product):
     price = product.price
+
     for discount in product.discounts:
-        price *= (1.0 - discount)
+        price = _apply_discount(price, discount)
+
     return price
 
 def calculate_total(products, coupons: "list[Coupon]" = []):
